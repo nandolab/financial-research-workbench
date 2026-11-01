@@ -83,3 +83,25 @@ test('sensitivity deep links validate selections and reject malformed controls',
  const bad=parseRoute('#/fdi/methods?lpExtra=5&responseView=nominal-causal-effect');assert.equal(bad.params.has('lpExtra'),false);assert.equal(bad.params.has('responseView'),false);
  const good=parseRoute('#/fdi/methods?lpExtra=2&responseView=unit-growth');assert.equal(good.params.get('lpExtra'),'2');assert.equal(good.params.get('responseView'),'unit-growth');
 });
+
+test('inference follow-up deep links validate methods and common-sample lag choices',()=>{
+ const bad=parseRoute('#/fdi/methods?followLag=7&intervalMethod=causality-fixed&calibrationSample=brazil-truth');
+ for(const key of ['followLag','intervalMethod','calibrationSample'])assert.equal(bad.params.has(key),false);
+ const good=parseRoute('#/fdi/methods?followLag=4&intervalMethod=hc3_t&calibrationSample=holdout');
+ assert.equal(good.params.get('followLag'),'4');assert.equal(good.params.get('intervalMethod'),'hc3_t');assert.equal(good.params.get('calibrationSample'),'holdout');
+});
+
+test('completed follow-up preserves evidence and reports unresolved calibration',()=>{
+ const d=JSON.parse(readFileSync(new URL('../public/data/fdi/inference-followup.json',import.meta.url),'utf8'));
+ const b=JSON.parse(readFileSync(new URL('../public/data/fdi/observatory.json',import.meta.url),'utf8'));
+ assert.equal(d.parent,b.identity);assert.equal(d.state,'complete');assert.equal(d.validation.checkpoints_reconciled,12000);
+ assert.equal(d.preservation.baseline_rerun,false);assert.equal(d.preservation.original_bootstrap_rerun,false);
+ assert.equal(d.empirical.rows.length,52);assert.ok(d.empirical.normalization_equivalence_max_abs_difference<1e-9);
+ const h4=d.empirical.rows.filter(r=>r.h===4);assert.deepEqual(h4.map(r=>r.n),[111,111,111,111]);assert.deepEqual(h4.map(r=>r.k),[16,21,26,31]);
+ for(const r of h4)assert.ok(r.intervals.hac_corrected_t.lower<0&&r.intervals.hac_corrected_t.upper>0);
+ assert.ok(h4.some(r=>r.intervals.hac_corrected_t.estimate<0)&&h4.some(r=>r.intervals.hac_corrected_t.estimate>0));
+ assert.equal(d.calibration.cells.length,12);
+ for(const c of d.calibration.cells){for(const score of Object.values(c.methods)){assert.equal(score.valid,1000);assert.equal(score.failures,0);assert.ok(score.mcse>0);assert.ok(score.mean_width>0)}}
+ const holdout=d.calibration.cells.filter(c=>c.sample==='holdout');assert.equal(holdout.length,4);
+ for(const c of holdout){assert.ok(c.methods.hac_corrected_t.coverage<.95);assert.ok(c.methods.hc3_t.coverage>c.methods.legacy_hac_normal.coverage);assert.ok(c.methods.hc3_t.mean_width>c.methods.legacy_hac_normal.mean_width);assert.ok(c.methods.oracle_hac_corrected_t.coverage<.95)}
+});
