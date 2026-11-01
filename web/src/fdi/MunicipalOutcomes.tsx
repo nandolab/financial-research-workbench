@@ -1,0 +1,11 @@
+import Chart from './Chart';
+import {lines,effectsPlot} from './charts';
+
+export default function MunicipalOutcomes({municipal}:{municipal:any}){
+ const outcomes=Object.entries(municipal.outcomes||{}).filter(([,r]:any)=>r.state==='estimated_conditional_on_assumptions') as Array<[string,any]>;
+ if(!outcomes.length)return <section className="fdi-empty"><h2>Municipal event-study estimates</h2><p>{municipal.reason||'The verified operational-opening registry and eligible outcome panel are unavailable.'}</p><a href="#/fdi/methods">Inspect source requirements</a></section>;
+ return <>{outcomes.map(([name,r])=>{
+  const critical=r.simultaneous_critical_values||r.att.map(()=>r.simultaneous_critical_value),lo=r.att.map((v:number,i:number)=>v-critical[i]*r.se[i]),hi=r.att.map((v:number,i:number)=>v+critical[i]*r.se[i]);
+  return <Chart key={name} id={'c18-'+name} title={'Opening effects: '+name.replaceAll('_',' ')} caption={`Callaway–Sant’Anna · municipality-clustered simultaneous confidence bands. Reference −3; anticipation −2 to −1. ${r.municipalities} municipalities, ${r.treated} treated. Conditional parallel trends and spillover restrictions apply.`} option={{...lines(r.periods,[],'Outcome units'),series:[{type:'line',name:'Group-time ATT',data:r.att,markLine:{silent:true,symbol:'none',data:[{yAxis:0}],lineStyle:{color:'#95a5b4'}}},{type:'line',name:'Simultaneous lower',data:lo,lineStyle:{type:'dashed',width:1},symbol:'none'},{type:'line',name:'Simultaneous upper',data:hi,lineStyle:{type:'dashed',width:1},symbol:'none'}]}} rows={[["Event year","ATT","Simultaneous lower","Simultaneous upper"],...r.periods.map((t:number,i:number)=>[t,r.att[i],lo[i],hi[i]])]}/>;
+ })}{outcomes.map(([name,r])=><Chart key={'summary-'+name} id={'c19-local-'+name} title={'Years 1–5: '+name.replaceAll('_',' ')} caption="Average effect in years one through five. Pointwise 95% normal-approximation interval from the municipality-clustered standard error. Each outcome retains its own units." option={effectsPlot([{name:'Average effect, years 1–5',estimate:r.overall,lower:r.overall-1.96*r.overall_se,upper:r.overall+1.96*r.overall_se}],'Outcome units')} rows={[["Outcome","Years 1–5 ATT","Clustered SE"],[name,r.overall,r.overall_se]]} height={220}/>)}</>;
+}

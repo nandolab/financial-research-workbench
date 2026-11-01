@@ -25,3 +25,15 @@ jobs:
       - run: npm ci
       - run: npm run test:web
       - run: npm run build
+
+  verify-fdi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: research/fdi/requirements.txt
+      - run: python -m pip install -r research/fdi/requirements.txt pytest==8.4.1
+      - run: python -m pytest scripts/fdi/test_models.py scripts/fdi/test_storage.py scripts/causal/test_audit.py scripts/causal/test_review.py scripts/test_fdi_temporal.py -q

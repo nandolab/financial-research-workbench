@@ -1,0 +1,12 @@
+{
+  "source_export_identity": "c10d6d98934426b664c224913c8bdb20f15730cee45c013485fe1e8ea2701834",
+  "source_sha256": "dee1b3cdd52a3949b1f1f4bcce076b887e299c1cd10824aa60ce8a7c877438fb",
+  "code_sha256": "b7347a2ffbc8b7d671f30d53f44381b5bdec0d4d1a588d217206088f0de6836f",
+  "figures": {
+    "02-investor-origin-map.svg": "9fa5d9d82f5c9286f8ffd017cc340aa7601ae4ef84ab67dfe874f6cfc61016c8",
+    "02-investor-origin-map.png": "ffed8e656ed78fa460a8eb3e52c5bd1ba21533a2abf98bb54cb0324f7077cdc7",
+    "03-national-gdp-response.svg": "010e302f1dd0578c270f49b8e11ef6692d31e1b95f7b300193ea64f6eaea5984",
+    "03-national-gdp-response.png": "cb08590401478b6517d3ebcbd16a8202ff5a1f0ec985d81497b9419ed88992bc"
+  },
+  "municipal_event_study": "not rendered; identification inputs unavailable"
+}

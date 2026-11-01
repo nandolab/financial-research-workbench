@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "version": "2026-10-31-python-handbook-extension",
+  "language": "Python only",
+  "implementation": {"package":"moderndid","version":"0.4.0","minimum_python":"3.12","engine":"NumPy CPU","data_access":"pySidraData commit 85a2b39c0cc5eec56d0a3605bbfa1d497899cc8e plus versioned official BCB/IBGE/RAIS sources","legacy_boundary":"The immutable national archive retains its original specification. This separately hashed Python design supersedes its unexecuted municipal R implementation."},
+  "primary_effect_model": "Callaway–Sant’Anna doubly robust staggered difference-in-differences",
+  "role": "Primary municipal counterfactual impact design; separate from national SVAR dynamics",
+  "estimand": "ATT(g,t) of the first verified qualifying foreign-invested operational opening; average over event years 1–5",
+  "population": "Eligible municipalities with verified treatment histories and comparable annual outcomes; not all FDI dollars",
+  "references": [
+    {"title": "Matheus Facure — Graphical Causal Models", "url": "https://matheusfacure.github.io/python-causality-handbook/04-Graphical-Causal-Models.html", "application": "Explicit confounding paths and prohibition of post-treatment controls"},
+    {"title": "Matheus Facure — Doubly Robust Estimation", "url": "https://matheusfacure.github.io/python-causality-handbook/12-Doubly-Robust-Estimation.html", "application": "Separate treatment and outcome nuisance models; overlap required; no immunity to unobserved confounding"},
+    {"title": "Matheus Facure — The Difference-in-Differences Saga", "url": "https://matheusfacure.github.io/python-causality-handbook/24-The-Diff-in-Diff-Saga.html", "application": "Cohort-time effects and eligible controls; avoid already-treated comparisons and naive constant-effect TWFE"},
+    {"title": "ModernDiD Python att_gt", "url": "https://moderndid.readthedocs.io/en/stable/api/generated/multiperiod/moderndid.att_gt.html", "application": "Python group-time DR estimator, municipality multiplier bootstrap and simultaneous event-study bands"},
+    {"title": "Fernando Barbosa — pySidraData", "url": "https://github.com/nandolab/pySidraData/tree/85a2b39c0cc5eec56d0a3605bbfa1d497899cc8e", "application": "Pinned IBGE SIDRA metadata and observations; source definitions and raw response hashes preserved"}
+  ],
+  "dag": {
+    "nodes": ["Pretreatment size and structure", "Infrastructure and local policies", "Unobserved changing prospects", "Foreign-invested operational opening", "Supplier and investment responses", "Municipal outcomes"],
+    "edges": [[0,3],[0,5],[1,3],[1,5],[2,3],[2,5],[3,4],[4,5],[3,5]],
+    "adjustment": ["Baseline population", "Baseline GDP per capita", "Baseline industry share", "Baseline employment intensity"],
+    "not_adjusted": ["Post-opening jobs", "Post-opening investment", "Post-opening sector shares", "Other mediators or colliders"],
+    "unblocked_risk": "Unobserved time-varying local prospects or policy packages can violate conditional parallel trends. Observed covariates cannot prove this path absent."
+  },
+  "assumptions": ["Conditional parallel trends in untreated potential outcomes", "No effects earlier than the two-year anticipation allowance", "Verified first qualifying operational opening and prior-exposure histories", "Adequate common support for each treated cohort and comparison set", "No uncontrolled cross-municipality spillovers", "Comparable outcome definitions and geographic boundaries"],
+  "audit": {
+    "clean_pre_years": 5,
+    "anticipation_years": 2,
+    "post_years": 5,
+    "reference_event_year": -3,
+    "overlap_probability_bounds": [0.05,0.95],
+    "minimum_treated_per_cohort": 5,
+    "minimum_controls_per_comparison": 20,
+    "minimum_control_effective_sample_size": 15,
+    "overlap_failure_policy": "Block the affected comparison; never silently clip propensity scores or trim the estimand",
+    "covariate_policy": "All baseline covariates constant within municipality and measured at one common year no later than the earliest eligible opening minus three; comparisons share that covariate vintage. Outcome changes use each cohort's clean base year.",
+    "comparison_policy": "Never treated or not yet treated and outside their anticipation window; absence from a short project list does not establish untreated status",
+    "placebo_policy": "Report clean pretreatment pseudo-effects and joint test, false timing within clean pretreatment, and neighboring-municipality exclusions when a verified adjacency file exists",
+    "pretrend_policy": "Passing a pretrend test does not prove parallel trends; failures block a causal-results label and remain visible",
+    "report_all": true
+  },
+  "robustness": ["Anticipation 0, 1 and 2", "Never-treated controls alone", "Verified neighboring controls excluded", "Cohort and sector estimates only where support passes"],
+  "release": {"requires_verified_treatment_registry":true,"requires_verified_comparison_histories":true,"requires_harmonized_outcome_panel":true,"requires_estimator_simulation":true,"causal_label_without_identification":false},
+  "national_boundary": "The completed SVAR and identified-shock local projections remain conditional on their frozen recursive restrictions. The handbook is not presented as independent validation of those restrictions."
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "title": "Brazil FDI Observatory",
+  "author": "Fernando Barbosa",
+  "window": [1996, 2025],
+  "language": "en",
+  "seed": 20261031,
+  "bootstrap_replications": 2000,
+  "bootstrap_batch": 100,
+  "horizons": 12,
+  "lags": [1, 2, 3, 4],
+  "lag_criterion": "BIC on a common maximum-lag sample",
+  "variables": ["nfci", "gdp_growth", "gfcf_growth", "reer_change", "fdi_gdp"],
+  "controls": ["us_gdp_growth", "fedfunds_change", "quarter_dummies"],
+  "identification": "Recursive Cholesky in declared variable order; Brazil lags excluded from NFCI equation; correlated residual vectors preserve contemporaneous covariance.",
+  "alternative_orders": [["nfci", "gdp_growth", "fdi_gdp", "gfcf_growth", "reer_change"], ["nfci", "gdp_growth", "gfcf_growth", "fdi_gdp", "reer_change"]],
+  "models": {
+    "svar": {"stationarity_gate": "ADF p>0.10 and KPSS p<0.05 blocks a level input; no automatic silent re-specification", "stability_gate": "all companion eigenvalue moduli <1", "residual_gate": "multivariate portmanteau at 8 quarters, p>=0.05", "inference": "residual-vector bootstrap, fixed selected lag and exogenous path, refit restricted system and re-identify every replication"},
+    "local_projections": {"identified_shocks": "same fitted structural shocks as SVAR", "lags": "same selected lag", "uncertainty": "Newey-West HAC and full-system bootstrap", "boundary": "inherits structural identification; not independent causal evidence"},
+    "municipal_did": {"estimator": "Callaway-Sant'Anna doubly robust ATT(g,t), did 2.5.1", "treatment": "first verified operational foreign-invested establishment opening, not announcement", "control_group": "notyettreated", "anticipation": 2, "clean_pre_years": 5, "post_years": 5, "reference_event_year": -3, "summary_years": [1, 2, 3, 4, 5], "outcomes": ["log_gdp_per_capita_deflated", "formal_jobs_per_working_age_resident", "log_real_formal_earnings"], "covariates": ["baseline_population", "baseline_gdp_per_capita", "baseline_industry_share", "baseline_employment_intensity"], "inference": "municipality-clustered multiplier bootstrap; simultaneous confidence bands", "gates": ["primary-source opening and foreign-investment evidence", "ownership and dates verified", "five clean pre-periods and five post-periods", "adequate control overlap", "no already-treated controls", "no personal microdata in public export"]}
+  },
+  "measurement_rules": ["Never combine BPM5 and BPM6 silently", "Flows are not positions", "Negative and suppressed values are not zero", "Country-sector cells require a published joint distribution", "Municipal context and project locations are not measured municipal FDI", "Source vintages and boundary years are explicit", "Quarterly FDI USD converted monthly at the period-average BRL/USD rate and divided by quarterly nominal BRL GDP; conversion is part of the estimand", "Reer direction must follow the selected source definition", "No causal claim if diagnostics or identification gates fail"],
+  "release_policy": "Article draft and local preview only; no public publication or scheduling",
+  "historical_research": {"title": "Determinantes do Investimento Estrangeiro Direto no Brasil no período de 1995 a 2010", "recognition": "PUC-SP honorable mention, 2013", "award_url": "https://www4.pucsp.br/ic/22encontro/download/Premiacao-Mencao-Honrosa-Divulga-IC22-2013-25112013.pdf", "manuscript_status": "not_recovered", "new_estimates_are_original_results": false}
+}

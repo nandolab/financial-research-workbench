@@ -6,3 +6,14 @@ scripts/ner_recover_gliner2.py text eol=lf
 scripts/ner_langsmith_replay.py text eol=lf
 web/public/data/ner-results.json text eol=lf
 web/public/data/ner-index/*.json text eol=lf
+
+# Research identities and downloaded public artifacts are hashed as exact bytes.
+web/public/data/fdi/** -text whitespace=cr-at-eol
+web/public/data/fdi/*.svg whitespace=cr-at-eol,-blank-at-eol
+web/public/data/brazil_fdi_observatory.ipynb -text whitespace=cr-at-eol
+notebooks/brazil_fdi_observatory.ipynb -text whitespace=cr-at-eol
+scripts/fdi/** -text
+scripts/causal/** -text
+scripts/fdi_*.py -text
+research/fdi/*.json -text
+research/fdi/requirements*.txt -text

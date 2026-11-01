@@ -2,6 +2,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import {BookOpen, Search, ArrowUpRight, GitCompareArrows, Layers, FlaskConical, ChevronRight, Download, Home, Tags} from 'lucide-react';
 import './styles.css';
+import WorkbenchRoot from './WorkbenchRoot';
 
 import type {Data,Model} from './types';
 import CaseFilePage from './components/CaseFilePage';
@@ -46,6 +47,7 @@ function App() {
   return <div className="app-shell">
     <aside className="sidebar">
       <a className="identity" href="https://nandolab.github.io/" aria-label="Fernando Barbosa home"><div className="brand-symbol">fb.</div><span>Fernando Barbosa<small>Research workbench</small></span></a>
+      <div className="workspace-switcher" aria-label="Research workspace"><a href="#/hub">All workspaces</a><a href="#/overview" aria-current="page">Financial Intelligence</a><a href="#/fdi/overview">Foreign Direct Investment</a></div>
       <div className="workspace-owner">Financial intelligence <span>Independent research</span></div>
       <nav aria-label="Workspace"><button className={view==='overview'?'active':''} onClick={()=>setView('overview')}><Home size={18}/>Start here</button><button className={view==='research'?'active':''} onClick={()=>setView('research')}><Search size={18}/>Research cases</button><button className={view==='models'?'active':''} onClick={()=>setView('models')}><GitCompareArrows size={18}/>Model comparison<span className="nav-count">5</span></button><button className={view==='entities'?'active':''} onClick={()=>setView('entities')}><Tags size={18}/>Named entities</button><button className={view==='evaluation'?'active':''} onClick={()=>setView('evaluation')}><FlaskConical size={18}/>Evaluation lab</button><button className={view==='corpus'?'active':''} onClick={()=>setView('corpus')}><Layers size={18}/>Document library</button><button className={view==='method'?'active':''} onClick={()=>setView('method')}><FlaskConical size={18}/>How it works</button></nav>
       <div className="sidebar-library"><span className="small-heading">Research collection</span><div className="coverage-bar"><i/></div><p>{data.documents.length} original reports<br/><span>Banking & property insurance</span></p><div className="ticker-list">{[...new Set(data.documents.map(d=>d.ticker))].map(t=><span key={t}>{t}</span>)}</div></div>
@@ -64,4 +66,4 @@ function App() {
   </div>
 }
 
-createRoot(document.getElementById('root')!).render(<React.StrictMode><App/></React.StrictMode>);
+createRoot(document.getElementById('root')!).render(<React.StrictMode><WorkbenchRoot financial={App}/></React.StrictMode>);

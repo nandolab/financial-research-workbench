@@ -1,0 +1,10 @@
+# Isolated Python >=3.12 CPU environment; national environment remains frozen.
+moderndid==0.4.0
+numpy==2.2.6
+pandas==2.2.3
+scipy==1.18.1
+statsmodels==0.15.0
+polars==2.1.0
+polars-runtime-32==2.1.0
+sidrapy==0.1.4
+pySidraData @ git+https://github.com/nandolab/pySidraData.git@85a2b39c0cc5eec56d0a3605bbfa1d497899cc8e
