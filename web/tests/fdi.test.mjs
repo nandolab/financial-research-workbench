@@ -64,3 +64,22 @@ test('teaching metadata is tied to the unchanged result snapshot and preserves c
  assert.ok(nb.cells.filter(c=>c.cell_type==='code').every(c=>c.execution_count===null&&c.outputs.length===0));
  assert.ok(nb.cells.some(c=>c.source.join('').includes('RUN_NEW_CHECKS=False')));
 });
+
+test('completed sensitivity export preserves baseline points and separates synthetic evidence',()=>{
+ const r=JSON.parse(readFileSync(new URL('../public/data/fdi/robustness.json',import.meta.url),'utf8'));
+ const b=JSON.parse(readFileSync(new URL('../public/data/fdi/observatory.json',import.meta.url),'utf8'));
+ assert.equal(r.parent,b.identity);assert.equal(r.state,'complete');assert.equal(r.baseline_bootstrap_rerun,false);
+ assert.equal(r.saved_draws.new_draws,0);assert.equal(r.saved_draws.saved_draws,2000);assert.equal(r.validation.mc_checkpoints_reconciled,8000);
+ assert.ok(r.validation.baseline_lp_max_abs_difference<1e-10);assert.equal(r.simulation.synthetic,true);
+ assert.deepEqual(r.lp.specifications.map(s=>s.extra_lags),[0,1,2]);
+ assert.ok(r.lp.specifications.every(s=>s.pointwise_95_hac[4][1][4][0]<0&&s.pointwise_95_hac[4][1][4][1]>0));
+ assert.ok(r.lp.specifications[0].irf[4][1][4]<0&&r.lp.specifications[1].irf[4][1][4]>0);
+ for(let h=0;h<13;h++)assert.ok(Math.abs(r.baseline.unit_gdp_growth[h]-b.national.irf[h][1][4]/r.baseline.impact_fdi_pp)<1e-12);
+ for(const c of r.simulation.cells){assert.equal(c.valid+c.failures,c.requested);assert.equal(c.requested,1000);assert.ok(c.conditional_coverage<.95);assert.ok(c.mcse>0)}
+ assert.ok(r.saved_draws.gdp_level_pointwise_95['0.025'][4]<0&&r.saved_draws.gdp_level_pointwise_95['0.975'][4]>0);
+ assert.match(r.interpretation,/not new causal identification/);
+});
+test('sensitivity deep links validate selections and reject malformed controls',()=>{
+ const bad=parseRoute('#/fdi/methods?lpExtra=5&responseView=nominal-causal-effect');assert.equal(bad.params.has('lpExtra'),false);assert.equal(bad.params.has('responseView'),false);
+ const good=parseRoute('#/fdi/methods?lpExtra=2&responseView=unit-growth');assert.equal(good.params.get('lpExtra'),'2');assert.equal(good.params.get('responseView'),'unit-growth');
+});

@@ -1,12 +1,14 @@
 {
   "schema_version": 1,
-  "version": "2026-10-31-transparency-1",
+  "version": "2026-11-01-transparency-2",
   "parent": "4b63a4eef4770644f07f41375529d7123116a72ce633799510dccac397fbc0c4",
   "source_sha256": {
     "observatory.json": "dee1b3cdd52a3949b1f1f4bcce076b887e299c1cd10824aa60ce8a7c877438fb",
-    "temporal.json": "f5943d6770a4e6ad609c5fed244c23ec5f7f65c9c96919af8c10481d9df7b7dd"
+    "temporal.json": "f5943d6770a4e6ad609c5fed244c23ec5f7f65c9c96919af8c10481d9df7b7dd",
+    "robustness.json": "225220116abc71935097f7db5ceeb35ac6aae7ad667175cddae22ed87022d6a7"
   },
-  "hypothesis_status": "Retrospective explanation of completed analyses; not a claim of preregistration. New checks are separately specified before execution.",
+  "robustness_identity": "9dd0c16ad8e6777c31ec967d019bfddceb3339abd33552f5641415c466b703e4",
+  "hypothesis_status": "Retrospective explanation of completed analyses; not a claim of preregistration. The new checks were specified before their execution, after the original baseline had been observed.",
   "gdp_response_to_fdi": {
     "horizon": 4,
     "estimate": -0.011344389711468615,
@@ -276,7 +278,7 @@
     "active_municipal": "Python ModernDiD 0.4.0 / Callaway–Sant’Anna doubly robust design; no empirical municipal ATT has been estimated.",
     "poster": "The original PUC-SP poster is recovered. The original underlying data, code and full manuscripts remain unrecovered.",
     "fevd": "The reviewed public FEVD already uses responses 0 through h−1 for an h-quarter forecast. The native archive summary is retained unchanged; do not export it directly as the reviewed series.",
-    "robustness": "Additional Python robustness notebook is prepared, not a completed sensitivity or Monte Carlo study."
+    "robustness": "Four additional CPU Python stages are now complete in separate run 38327917fbcc9781: residual diagnostics, lag-augmented LP sensitivity, saved-draw conversions and 8,000 synthetic replications. The original results are preserved. Conditional HAC and high-dimensional diagnostic limitations remain; synthetic undercoverage is a warning, not validation of Brazilian causal effects. The downloadable clean notebook remains a reproducibility template, distinct from the private executed history."
   },
-  "identity": "d0ac05685a683fef0339e04a2ae9a0ab45b877b2cfea333634ecf78aa18e3498"
+  "identity": "234f27f6c43becf6acc8f14a524a0d3200457b803e0b5e43e772edf016d71790"
 }
