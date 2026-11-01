@@ -1,0 +1,282 @@
+{
+  "schema_version": 1,
+  "version": "2026-10-31-transparency-1",
+  "parent": "4b63a4eef4770644f07f41375529d7123116a72ce633799510dccac397fbc0c4",
+  "source_sha256": {
+    "observatory.json": "dee1b3cdd52a3949b1f1f4bcce076b887e299c1cd10824aa60ce8a7c877438fb",
+    "temporal.json": "f5943d6770a4e6ad609c5fed244c23ec5f7f65c9c96919af8c10481d9df7b7dd"
+  },
+  "hypothesis_status": "Retrospective explanation of completed analyses; not a claim of preregistration. New checks are separately specified before execution.",
+  "gdp_response_to_fdi": {
+    "horizon": 4,
+    "estimate": -0.011344389711468615,
+    "lower": -0.040244442589905845,
+    "upper": 0.005018298149489606,
+    "unit": "GDP log growth, % q/q",
+    "impact": 1.1779292902962384
+  },
+  "fdi_response_to_us_conditions": {
+    "horizon": 4,
+    "estimate": -0.04584435021102144,
+    "lower": -0.14571593734129787,
+    "upper": 0.049885861524246546,
+    "unit": "Inward FDI / quarterly GDP, %",
+    "impact": 0.2210749589853009
+  },
+  "papers": [
+    {
+      "key": "plagborgwolf2021",
+      "author": "Mikkel Plagborg-Møller and Christian K. Wolf",
+      "year": 2021,
+      "title": "Local Projections and VARs Estimate the Same Impulse Responses",
+      "journal": "Econometrica",
+      "doi": "10.3982/ECTA17813",
+      "url": "https://economics.mit.edu/sites/default/files/publications/lp_var.pdf",
+      "review_priorities": [
+        2,
+        9
+      ],
+      "selection": "peer-reviewed journal publication from 2020 onward",
+      "scope": "methodology",
+      "application": "LP and VAR can target the same population response. Agreement is not independent causal identification; finite lag choices matter."
+    },
+    {
+      "key": "montielplagborg2021",
+      "author": "José Luis Montiel Olea and Mikkel Plagborg-Møller",
+      "year": 2021,
+      "title": "Local Projection Inference Is Simpler and More Robust Than You Think",
+      "journal": "Econometrica",
+      "doi": "10.3982/ECTA18756",
+      "url": "https://joseluismontielolea.com/lp_inference_ecta.pdf",
+      "review_priorities": [
+        9
+      ],
+      "selection": "peer-reviewed journal publication from 2020 onward",
+      "scope": "methodology",
+      "application": "Lag-augmented LP inference needs its own conditions. The published baseline HAC/VAR-bootstrap implementation is not automatically this procedure."
+    },
+    {
+      "key": "liplagborgwolf2024",
+      "author": "Dake Li and Mikkel Plagborg-Møller and Christian K. Wolf",
+      "year": 2024,
+      "title": "Local Projections vs. VARs: Lessons from Thousands of DGPs",
+      "journal": "Journal of Econometrics",
+      "doi": "10.1016/j.jeconom.2024.105722",
+      "url": "https://doi.org/10.1016/j.jeconom.2024.105722",
+      "review_priorities": [
+        9
+      ],
+      "selection": "peer-reviewed journal publication from 2020 onward",
+      "scope": "methodology",
+      "application": "Compare finite-sample bias, variance and coverage across several data-generating processes, rather than treating LP as universally superior."
+    },
+    {
+      "key": "callawaysantanna2021",
+      "author": "Brantly Callaway and Pedro H. C. Sant’Anna",
+      "year": 2021,
+      "title": "Difference-in-Differences with Multiple Time Periods",
+      "journal": "Journal of Econometrics",
+      "doi": "10.1016/j.jeconom.2020.12.001",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0304407620303948",
+      "review_priorities": [
+        6,
+        7
+      ],
+      "selection": "peer-reviewed journal publication from 2020 onward",
+      "scope": "methodology",
+      "application": "Use cohort-time treatment effects and eligible comparisons when opening dates differ. This is the primary municipal design, not an estimated result yet."
+    },
+    {
+      "key": "santannazhao2020",
+      "author": "Pedro H. C. Sant’Anna and Jun Zhao",
+      "year": 2020,
+      "title": "Doubly Robust Difference-in-Differences Estimators",
+      "journal": "Journal of Econometrics",
+      "doi": "10.1016/j.jeconom.2020.06.003",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0304407620301901",
+      "review_priorities": [
+        5,
+        7,
+        9
+      ],
+      "selection": "peer-reviewed journal publication from 2020 onward",
+      "scope": "methodology",
+      "application": "Doubly robust means consistency if one of two nuisance models is correct under the design assumptions. It does not remove unobserved confounding or guarantee inference."
+    },
+    {
+      "key": "sunabraham2021",
+      "author": "Liyang Sun and Sarah Abraham",
+      "year": 2021,
+      "title": "Estimating Dynamic Treatment Effects in Event Studies with Heterogeneous Treatment Effects",
+      "journal": "Journal of Econometrics",
+      "doi": "10.1016/j.jeconom.2020.09.006",
+      "url": "https://www.sciencedirect.com/science/article/pii/S030440762030378X",
+      "review_priorities": [
+        7
+      ],
+      "selection": "peer-reviewed journal publication from 2020 onward",
+      "scope": "methodology",
+      "application": "Avoid a naive common-effect, two-way fixed-effects event study: heterogeneous effects can contaminate leads and lags."
+    },
+    {
+      "key": "roth2022",
+      "author": "Jonathan Roth",
+      "year": 2022,
+      "title": "Pretest with Caution: Event-Study Estimates after Testing for Parallel Trends",
+      "journal": "American Economic Review: Insights",
+      "doi": "10.1257/aeri.20210236",
+      "url": "https://pubs.aeaweb.org/doi/10.1257/aeri.20210236",
+      "review_priorities": [
+        8
+      ],
+      "selection": "peer-reviewed journal publication from 2020 onward",
+      "scope": "methodology",
+      "application": "A non-significant pretrend can reflect low power. Do not select the reported specification because it passes a pretest."
+    },
+    {
+      "key": "rambachanroth2023",
+      "author": "Ashesh Rambachan and Jonathan Roth",
+      "year": 2023,
+      "title": "A More Credible Approach to Parallel Trends",
+      "journal": "Review of Economic Studies",
+      "doi": "10.1093/restud/rdad018",
+      "url": "https://www.jonathandroth.com/assets/files/HonestParallelTrends_Main.pdf",
+      "review_priorities": [
+        8
+      ],
+      "selection": "peer-reviewed journal publication from 2020 onward",
+      "scope": "methodology",
+      "application": "Assess how conclusions change under bounded departures from parallel trends. A validated Python sensitivity implementation remains pending."
+    },
+    {
+      "key": "setzler2021",
+      "author": "Bradley Setzler and Felix Tintelnot",
+      "year": 2021,
+      "title": "The Effects of Foreign Multinationals on Workers and Firms in the United States",
+      "journal": "Quarterly Journal of Economics",
+      "doi": "10.1093/qje/qjab015",
+      "url": "https://doi.org/10.1093/qje/qjab015",
+      "review_priorities": [
+        1,
+        5,
+        8
+      ],
+      "selection": "peer-reviewed journal publication from 2020 onward",
+      "scope": "multinational investment application; not Brazil estimates",
+      "application": "US worker–firm evidence motivates direct and indirect channels. Its estimates are not Brazilian effects or a calibration for our municipalities."
+    },
+    {
+      "key": "alfarourena2022",
+      "author": "Alonso Alfaro-Ureña and Isabela Manelici and Jose P. Vasquez",
+      "year": 2022,
+      "title": "The Effects of Joining Multinational Supply Chains: New Evidence from Firm-to-Firm Linkages",
+      "journal": "Quarterly Journal of Economics",
+      "doi": "10.1093/qje/qjac006",
+      "url": "https://academic.oup.com/qje/article/137/3/1495/6517334",
+      "review_priorities": [
+        1,
+        5,
+        8
+      ],
+      "selection": "peer-reviewed journal publication from 2020 onward",
+      "scope": "multinational investment application; not Brazil estimates",
+      "application": "Costa Rican supplier-link evidence motivates supply-chain mechanisms. Evaluate its identification separately; do not transplant its coefficients or comparison design."
+    }
+  ],
+  "books": [
+    {
+      "title": "The Book of Why: The New Science of Cause and Effect",
+      "authors": "Judea Pearl and Dana Mackenzie",
+      "edition": "First edition, Basic Books, 2018",
+      "sections": "Chapter 1 (PDF pp. 34–37); Chapter 4 (PDF pp. 143, 148–152). PDF pagination refers to the inspected reflowed copy, not print pages.",
+      "application": "Distinguish seeing from doing and counterfactual questions. Draw common causes, mediators and colliders before choosing controls. The diagram expresses assumptions; it does not verify them.",
+      "url": "https://www.hachettebookgroup.com/titles/judea-pearl/the-book-of-why/9780465097616/"
+    },
+    {
+      "title": "Statistical Models: Theory and Practice",
+      "authors": "David A. Freedman",
+      "edition": "Revised edition, Cambridge University Press, 2009",
+      "sections": "Chapter 1, pp. 1–14; Chapter 6, pp. 81–87; Chapter 8, pp. 155–156.",
+      "application": "Ask whether a fitted relationship would remain stable under an intervention. Report the economic size of a one-standard-deviation shock. Distinguish 2,000 simulated bootstrap draws from 119 observed quarters.",
+      "url": "https://www.cambridge.org/9780521112437"
+    },
+    {
+      "title": "A Guide to Modern Econometrics",
+      "authors": "Marno Verbeek",
+      "edition": "Fifth edition, Wiley, 2017",
+      "sections": "Section 2.5.7, pp. 30–31; Section 5.2.4, p. 148; Section 9.2, p. 363.",
+      "application": "Explain p-values and power, reverse causality and the predictive meaning of Granger tests. A small p-value or an ability to predict does not itself establish an intervention effect.",
+      "url": "https://www.wiley.com/en-us/A+Guide+to+Modern+Econometrics%2C+5th+Edition-p-9781119401155"
+    }
+  ],
+  "origin_comparison": {
+    "immediate": [
+      {
+        "basis": "immediate",
+        "country": "USA",
+        "name": "United States",
+        "original_name": "Estados Unidos",
+        "share": 0.28825116734889655,
+        "value_usd": 329219534167.18475,
+        "year": 2025
+      },
+      {
+        "basis": "immediate",
+        "country": "NLD",
+        "name": "Netherlands",
+        "original_name": "Países Baixos",
+        "share": 0.148154812267225,
+        "value_usd": 169211659150.73346,
+        "year": 2025
+      },
+      {
+        "basis": "immediate",
+        "country": "LUX",
+        "name": "Luxembourg",
+        "original_name": "Luxemburgo",
+        "share": 0.07815404987630299,
+        "value_usd": 89261875780.75696,
+        "year": 2025
+      }
+    ],
+    "ultimate": [
+      {
+        "basis": "ultimate",
+        "country": "USA",
+        "name": "United States",
+        "original_name": "Estados Unidos",
+        "share": 0.2514497053919494,
+        "value_usd": 287187578933.25256,
+        "year": 2025
+      },
+      {
+        "basis": "ultimate",
+        "country": "URY",
+        "name": "Uruguay",
+        "original_name": "Uruguai",
+        "share": 0.07626495924344047,
+        "value_usd": 87104293753.00468,
+        "year": 2025
+      },
+      {
+        "basis": "ultimate",
+        "country": "FRA",
+        "name": "France",
+        "original_name": "França",
+        "share": 0.07175115152386631,
+        "value_usd": 81948950624.90639,
+        "year": 2025
+      }
+    ]
+  },
+  "supersession": {
+    "frozen_specification": "The original study archive is preserved. Its unexecuted R municipal plan and unrecovered-poster wording are historical metadata, not the active implementation or current evidence.",
+    "legacy_eligibility_flag": "The frozen national causal_release_eligible flag records the original diagnostic gate, not certification of economic identification. The active public claim remains conditional on explicit restrictions.",
+    "publication_policy": "The frozen original release-policy wording is historical. The available-data website is authorized for release; the LinkedIn article remains an unpublished draft.",
+    "active_municipal": "Python ModernDiD 0.4.0 / Callaway–Sant’Anna doubly robust design; no empirical municipal ATT has been estimated.",
+    "poster": "The original PUC-SP poster is recovered. The original underlying data, code and full manuscripts remain unrecovered.",
+    "fevd": "The reviewed public FEVD already uses responses 0 through h−1 for an h-quarter forecast. The native archive summary is retained unchanged; do not export it directly as the reviewed series.",
+    "robustness": "Additional Python robustness notebook is prepared, not a completed sensitivity or Monte Carlo study."
+  },
+  "identity": "d0ac05685a683fef0339e04a2ae9a0ab45b877b2cfea333634ecf78aa18e3498"
+}

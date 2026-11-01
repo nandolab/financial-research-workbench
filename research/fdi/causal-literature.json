@@ -1,0 +1,150 @@
+[
+  {
+    "key": "plagborgwolf2021",
+    "author": "Mikkel Plagborg-Møller and Christian K. Wolf",
+    "year": 2021,
+    "title": "Local Projections and VARs Estimate the Same Impulse Responses",
+    "journal": "Econometrica",
+    "doi": "10.3982/ECTA17813",
+    "url": "https://economics.mit.edu/sites/default/files/publications/lp_var.pdf",
+    "review_priorities": [
+      2,
+      9
+    ],
+    "selection": "peer-reviewed journal publication from 2020 onward",
+    "scope": "methodology"
+  },
+  {
+    "key": "montielplagborg2021",
+    "author": "José Luis Montiel Olea and Mikkel Plagborg-Møller",
+    "year": 2021,
+    "title": "Local Projection Inference Is Simpler and More Robust Than You Think",
+    "journal": "Econometrica",
+    "doi": "10.3982/ECTA18756",
+    "url": "https://joseluismontielolea.com/lp_inference_ecta.pdf",
+    "review_priorities": [
+      9
+    ],
+    "selection": "peer-reviewed journal publication from 2020 onward",
+    "scope": "methodology"
+  },
+  {
+    "key": "liplagborgwolf2024",
+    "author": "Dake Li and Mikkel Plagborg-Møller and Christian K. Wolf",
+    "year": 2024,
+    "title": "Local Projections vs. VARs: Lessons from Thousands of DGPs",
+    "journal": "Journal of Econometrics",
+    "doi": "10.1016/j.jeconom.2024.105722",
+    "url": "https://doi.org/10.1016/j.jeconom.2024.105722",
+    "review_priorities": [
+      9
+    ],
+    "selection": "peer-reviewed journal publication from 2020 onward",
+    "scope": "methodology"
+  },
+  {
+    "key": "callawaysantanna2021",
+    "author": "Brantly Callaway and Pedro H. C. Sant’Anna",
+    "year": 2021,
+    "title": "Difference-in-Differences with Multiple Time Periods",
+    "journal": "Journal of Econometrics",
+    "doi": "10.1016/j.jeconom.2020.12.001",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0304407620303948",
+    "review_priorities": [
+      6,
+      7
+    ],
+    "selection": "peer-reviewed journal publication from 2020 onward",
+    "scope": "methodology"
+  },
+  {
+    "key": "santannazhao2020",
+    "author": "Pedro H. C. Sant’Anna and Jun Zhao",
+    "year": 2020,
+    "title": "Doubly Robust Difference-in-Differences Estimators",
+    "journal": "Journal of Econometrics",
+    "doi": "10.1016/j.jeconom.2020.06.003",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0304407620301901",
+    "review_priorities": [
+      5,
+      7,
+      9
+    ],
+    "selection": "peer-reviewed journal publication from 2020 onward",
+    "scope": "methodology"
+  },
+  {
+    "key": "sunabraham2021",
+    "author": "Liyang Sun and Sarah Abraham",
+    "year": 2021,
+    "title": "Estimating Dynamic Treatment Effects in Event Studies with Heterogeneous Treatment Effects",
+    "journal": "Journal of Econometrics",
+    "doi": "10.1016/j.jeconom.2020.09.006",
+    "url": "https://www.sciencedirect.com/science/article/pii/S030440762030378X",
+    "review_priorities": [
+      7
+    ],
+    "selection": "peer-reviewed journal publication from 2020 onward",
+    "scope": "methodology"
+  },
+  {
+    "key": "roth2022",
+    "author": "Jonathan Roth",
+    "year": 2022,
+    "title": "Pretest with Caution: Event-Study Estimates after Testing for Parallel Trends",
+    "journal": "American Economic Review: Insights",
+    "doi": "10.1257/aeri.20210236",
+    "url": "https://pubs.aeaweb.org/doi/10.1257/aeri.20210236",
+    "review_priorities": [
+      8
+    ],
+    "selection": "peer-reviewed journal publication from 2020 onward",
+    "scope": "methodology"
+  },
+  {
+    "key": "rambachanroth2023",
+    "author": "Ashesh Rambachan and Jonathan Roth",
+    "year": 2023,
+    "title": "A More Credible Approach to Parallel Trends",
+    "journal": "Review of Economic Studies",
+    "doi": "10.1093/restud/rdad018",
+    "url": "https://www.jonathandroth.com/assets/files/HonestParallelTrends_Main.pdf",
+    "review_priorities": [
+      8
+    ],
+    "selection": "peer-reviewed journal publication from 2020 onward",
+    "scope": "methodology"
+  },
+  {
+    "key": "setzler2021",
+    "author": "Bradley Setzler and Felix Tintelnot",
+    "year": 2021,
+    "title": "The Effects of Foreign Multinationals on Workers and Firms in the United States",
+    "journal": "Quarterly Journal of Economics",
+    "doi": "10.1093/qje/qjab015",
+    "url": "https://doi.org/10.1093/qje/qjab015",
+    "review_priorities": [
+      1,
+      5,
+      8
+    ],
+    "selection": "peer-reviewed journal publication from 2020 onward",
+    "scope": "multinational investment application; not Brazil estimates"
+  },
+  {
+    "key": "alfarourena2022",
+    "author": "Alonso Alfaro-Ureña and Isabela Manelici and Jose P. Vasquez",
+    "year": 2022,
+    "title": "The Effects of Joining Multinational Supply Chains: New Evidence from Firm-to-Firm Linkages",
+    "journal": "Quarterly Journal of Economics",
+    "doi": "10.1093/qje/qjac006",
+    "url": "https://academic.oup.com/qje/article/137/3/1495/6517334",
+    "review_priorities": [
+      1,
+      5,
+      8
+    ],
+    "selection": "peer-reviewed journal publication from 2020 onward",
+    "scope": "multinational investment application; not Brazil estimates"
+  }
+]

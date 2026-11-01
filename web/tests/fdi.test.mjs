@@ -49,3 +49,18 @@ test('Colab monetary export preserves the nominal snapshot, signs, base year and
  }
  assert.equal(d.rows.filter(r=>r.country==='BRA'&&Number.isFinite(r.constant_brl)).length,30);
 });
+
+test('teaching metadata is tied to the unchanged result snapshot and preserves claim boundaries',()=>{
+ const d=JSON.parse(readFileSync(new URL('../public/data/fdi/transparency.json',import.meta.url),'utf8'));
+ const b=JSON.parse(readFileSync(new URL('../public/data/fdi/observatory.json',import.meta.url),'utf8'));
+ assert.equal(d.parent,b.identity);assert.equal(d.papers.length,10);assert.equal(new Set(d.papers.map(p=>p.doi)).size,10);
+ assert.ok(d.papers.every(p=>p.year>=2020&&p.application&&p.scope));
+ assert.equal(d.books.length,3);assert.match(d.hypothesis_status,/not a claim of preregistration/);
+ const r=d.gdp_response_to_fdi;assert.equal(r.estimate,b.national.irf[4][1][4]);
+ assert.equal(r.lower,b.national.irf_intervals['0.025'][4][1][4]);assert.equal(r.upper,b.national.irf_intervals['0.975'][4][1][4]);
+ assert.ok(r.lower<0&&r.upper>0);assert.match(d.supersession.active_municipal,/no empirical municipal ATT/);
+ const nb=JSON.parse(readFileSync(new URL('../public/data/brazil_fdi_robustness.ipynb',import.meta.url),'utf8'));
+ assert.equal(nb.metadata.research_status,'prepared_not_executed');
+ assert.ok(nb.cells.filter(c=>c.cell_type==='code').every(c=>c.execution_count===null&&c.outputs.length===0));
+ assert.ok(nb.cells.some(c=>c.source.join('').includes('RUN_NEW_CHECKS=False')));
+});
