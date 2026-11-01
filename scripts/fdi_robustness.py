@@ -178,4 +178,3 @@ def main():
     assert before=={s:sha(a.run/s) for s in before},'Baseline mutated'
     print('Read-back verified backup:',backup(root),flush=True)
 if __name__=='__main__':main()
-

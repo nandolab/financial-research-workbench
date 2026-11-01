@@ -37,4 +37,3 @@ A separate private CPU notebook packages executable code for residual seasonal/d
 The full synthetic battery, new empirical sensitivity results, municipal Monte Carlo validation, parallel-trends sensitivity implementation, new deflator variants and omitted-variable specifications have not been completed. In particular, the conditional HAC comparison does not propagate all generated-shock uncertainty or establish the cited uniform-inference result.
 
 Test runs use synthetic data and validate code mechanics, deterministic seeds, input identity changes, gap rejection, baseline preservation and archive restoration. They are not a coverage claim. Preserve this distinction in articles, UI labels and release reports.
-

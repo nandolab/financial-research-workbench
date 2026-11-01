@@ -124,7 +124,7 @@ A new national check cannot cure missing municipal exposure histories. Retain nu
 Upload only validated aggregate exports to the website; keep books, private microdata and research archives private.
 """)
     notebook={'nbformat':4,'nbformat_minor':5,'metadata':{'colab':{'name':'brazil_fdi_robustness.ipynb'},'kernelspec':{'display_name':'Python 3','language':'python','name':'python3'},'language_info':{'name':'python'},'research_status':'prepared_not_executed','source_sha256':digest},'cells':cells}
-    out=ROOT/'notebooks/brazil_fdi_robustness.ipynb';out.write_text(json.dumps(notebook,ensure_ascii=False,indent=1)+'\n',encoding='utf8')
+    out=ROOT/'notebooks/brazil_fdi_robustness.ipynb';out.write_text(json.dumps(notebook,ensure_ascii=False,indent=1)+'\n',encoding='utf8',newline='\n')
     public=ROOT/'web/public/data/brazil_fdi_robustness.ipynb';public.write_bytes(out.read_bytes())
     assert json.loads(out.read_text(encoding='utf8'))==notebook
     # Syntax-compile all code cells after IPython-free construction; execute none.
@@ -132,4 +132,3 @@ Upload only validated aggregate exports to the website; keep books, private micr
         if c['cell_type']=='code':compile(''.join(c['source']),f'cell-{i}','exec')
     print('Notebook prepared:',len(cells),'cells, SHA256',hashlib.sha256(out.read_bytes()).hexdigest())
 if __name__=='__main__':build()
-

@@ -17,3 +17,7 @@ scripts/causal/** -text
 scripts/fdi_*.py -text
 research/fdi/*.json -text
 research/fdi/requirements*.txt -text
+
+# Preserve the independently verified robustness notebook in Drive and on Pages.
+web/public/data/brazil_fdi_robustness.ipynb -text whitespace=cr-at-eol
+notebooks/brazil_fdi_robustness.ipynb -text whitespace=cr-at-eol

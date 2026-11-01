@@ -35,4 +35,3 @@ export default function ResearchGuide({data,compact=false}:{data:Bundle;compact?
  {compact&&<a href="#/fdi/methods">Read the full tests, data cautions and references →</a>}
  </div>
 }
-
