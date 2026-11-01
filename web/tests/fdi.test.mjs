@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
 import {parseRoute,finite,format,axisTick} from '../src/fdi/types.ts';
 test('small positive and negative response ticks retain distinct numeric labels',()=>{
  const values=[-.3,-.25,-.2,-.15,-.1,-.05,0,.05,.1];
@@ -89,6 +90,41 @@ test('inference follow-up deep links validate methods and common-sample lag choi
  for(const key of ['followLag','intervalMethod','calibrationSample'])assert.equal(bad.params.has(key),false);
  const good=parseRoute('#/fdi/methods?followLag=4&intervalMethod=hc3_t&calibrationSample=holdout');
  assert.equal(good.params.get('followLag'),'4');assert.equal(good.params.get('intervalMethod'),'hc3_t');assert.equal(good.params.get('calibrationSample'),'holdout');
+});
+
+test('bootstrap deep links accept stated methods and reject invented causal fixes',()=>{
+ for(const method of ['hc3_t','recursive_wild_t','block4_t','block8_t'])assert.equal(parseRoute('#/fdi/methods?bootMethod='+method).params.get('bootMethod'),method);
+ assert.equal(parseRoute('#/fdi/methods?bootMethod=causal-certification').params.has('bootMethod'),false);
+});
+
+test('bootstrap reproduction template is gated, unexecuted and tied to the exact source ZIP',()=>{
+ const n=JSON.parse(readFileSync(new URL('../public/data/brazil_fdi_bootstrap.ipynb',import.meta.url),'utf8'));
+ assert.equal(n.metadata.research_status,'prepared_not_executed');
+ assert.ok(n.cells.filter(c=>c.cell_type==='code').every(c=>c.execution_count===null&&c.outputs.length===0));
+ const text=n.cells.map(c=>c.source.join('')).join('\n');
+ assert.match(text,/RUN_NEW_BOOTSTRAP=False/);assert.match(text,/EMPIRICAL_BACKUP_VERIFIED=False/);
+ assert.doesNotMatch(text,/fernando\.liaison|base64\.b64decode|1M1WuRl8/);
+ const source=readFileSync(new URL('../public/data/fdi_bootstrap_source.zip',import.meta.url));
+ assert.equal(createHash('sha256').update(source).digest('hex'),n.metadata.frozen_source_zip_sha256);
+});
+
+test('completed bootstrap evidence preserves points, proper centers and causal limits',()=>{
+ const d=JSON.parse(readFileSync(new URL('../public/data/fdi/bootstrap.json',import.meta.url),'utf8'));
+ const prior=JSON.parse(readFileSync(new URL('../public/data/fdi/inference-followup.json',import.meta.url),'utf8'));
+ assert.equal(d.state,'complete');assert.equal(d.parent,prior.parent);assert.equal(d.prior_inference_export,prior.identity);
+ assert.equal(d.causal_identification_validated,false);assert.equal(d.preservation.original_2000_bootstrap_rerun,false);assert.equal(d.preservation.Financial_Intelligence_rerun,false);
+ assert.equal(d.validation.outer_checkpoints,4000);assert.equal(d.validation.percentile_t_bounds_recomputed,true);assert.equal(d.validation.packet_count,10);
+ assert.equal(d.configuration.empirical_B,1999);assert.equal(d.configuration.MC_B,499);assert.deepEqual(d.randomization.fresh_outer_ids,[2000,2499]);
+ assert.deepEqual(d.empirical.rows.map(r=>r.p),[1,2,3,4]);
+ for(const r of d.empirical.rows){
+  assert.equal(r.n,111);const u=r.targets.unit;const old=prior.empirical.rows.find(v=>v.p===r.p&&v.h===4);
+  assert.ok(Math.abs(u.estimate-old.intervals.hc3_t.estimate)<1e-10);
+  assert.ok(Math.abs(u.se-old.intervals.hc3_t.se)<1e-10);
+  for(const method of ['recursive_wild_t','block4_t','block8_t']){const ci=u[method];assert.equal(ci.available,true);assert.equal(ci.valid+ci.failures,1999);assert.ok(ci.lower<0&&ci.upper>0);assert.ok(ci.q025<ci.q975)}
+  assert.ok(Math.abs(u.recursive_wild_t.center-u.estimate)>1e-8);assert.equal(u.block4_t.center,u.estimate);assert.equal(u.block8_t.center,u.estimate);
+ }
+ assert.equal(d.calibration.cells.length,8);
+ for(const c of d.calibration.cells){assert.equal(c.replications,500);assert.deepEqual(Object.keys(c.targets.sd).sort(),['hc3_t','recursive_wild_t']);for(const target of Object.values(c.targets))for(const s of Object.values(target)){assert.equal(s.valid+s.unavailable,500);if(s.coverage!==null){assert.ok(s.coverage>=0&&s.coverage<=1);assert.ok(s.mcse>=0);assert.ok(s.mean_width>0)}}}
 });
 
 test('completed follow-up preserves evidence and reports unresolved calibration',()=>{

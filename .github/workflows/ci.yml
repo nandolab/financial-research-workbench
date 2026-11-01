@@ -36,4 +36,4 @@ jobs:
           cache: pip
           cache-dependency-path: research/fdi/requirements.txt
       - run: python -m pip install -r research/fdi/requirements.txt pytest==8.4.1
-      - run: python -m pytest scripts/fdi/test_models.py scripts/fdi/test_storage.py scripts/causal/test_audit.py scripts/causal/test_review.py scripts/test_fdi_temporal.py scripts/test_fdi_robustness.py scripts/test_fdi_robustness_export.py scripts/test_fdi_inference_followup.py -q
+      - run: python -m pytest scripts/fdi/test_models.py scripts/fdi/test_storage.py scripts/causal/test_audit.py scripts/causal/test_review.py scripts/test_fdi_temporal.py scripts/test_fdi_robustness.py scripts/test_fdi_robustness_export.py scripts/test_fdi_inference_followup.py scripts/test_fdi_bootstrap_checks.py -q

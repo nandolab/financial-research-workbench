@@ -21,6 +21,7 @@ export function parseRoute(hash:string){
  for(const [key,min,max]of [['year',1996,2025],['localYear',2001,2025],['shock',0,4],['response',0,4],['lpExtra',0,2],['followLag',1,4]] as const){if(params.has(key)){const value=Number(params.get(key));if(!Number.isInteger(value)||value<min||value>max)params.delete(key)}}
  if(params.has('intervalMethod')&&!['legacy_hac_normal','hac_corrected_normal','hac_corrected_t','hc3_t','oracle_hac_corrected_t'].includes(params.get('intervalMethod')!))params.delete('intervalMethod');
  if(params.has('calibrationSample')&&!['paired','holdout'].includes(params.get('calibrationSample')!))params.delete('calibrationSample');
+ if(params.has('bootMethod')&&!['hc3_t','recursive_wild_t','block4_t','block8_t'].includes(params.get('bootMethod')!))params.delete('bootMethod');
  if(params.has('responseView')&&!['gdp-level','unit-growth'].includes(params.get('responseView')!))params.delete('responseView');
  if(params.has('state')&&!/^(1[1-7]|2[1-9]|3[1-3]|35|4[1-3]|5[0-3])$/.test(params.get('state')!))params.delete('state');
  if(params.has('city')&&!/^\d{7}$/.test(params.get('city')!))params.delete('city');
